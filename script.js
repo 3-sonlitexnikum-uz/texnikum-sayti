@@ -94,7 +94,7 @@ function handleSubmit(e) {
   const botToken = '8706849810:AAEwfQpbKxc1CbnLMsu2IVrswW50r9ob2Yk';
   const chatId = '-1004312532068';
 
-  const text = `рџ“¬ Yangi murojaat!\n\nрџ‘¤ Ism: ${name}\nрџ“ћ Telefon: ${phone}\nрџ“љ Yo'nalish: ${direction === "Yo'nalishni tanlang" ? "Tanlanmadi" : direction}\nрџ’¬ Xabar: ${message || "Yo'q"}`;
+  const text = `📬 Yangi murojaat!\n\n👤 Ism: ${name}\n📞 Telefon: ${phone}\n📚 Yo'nalish: ${direction === "Yo'nalishni tanlang" ? "Tanlanmadi" : direction}\n💬 Xabar: ${message || "Yo'q"}`;
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
