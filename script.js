@@ -1,4 +1,4 @@
-// Navbar scroll effect
+﻿// Navbar scroll effect
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 50);
@@ -38,7 +38,7 @@ if (newsGrid) {
             <div class="news-tag">${news.tag}</div>
             <h3>${news.title}</h3>
             <p>${news.content}</p>
-            <a href="https://t.me/dangara_3son_texnikum" target="_blank" class="news-link">Batafsil →</a>
+            <a href="https://t.me/dangara_3son_texnikum" target="_blank" class="news-link">Batafsil в†’</a>
           </div>
         `;
         newsGrid.insertBefore(card, newsGrid.firstChild);
@@ -94,7 +94,7 @@ function handleSubmit(e) {
   const botToken = '8706849810:AAEwfQpbKxc1CbnLMsu2IVrswW50r9ob2Yk';
   const chatId = '-1004312532068';
 
-  const text = `📬 Yangi murojaat!\n\n👤 Ism: ${name}\n📞 Telefon: ${phone}\n📚 Yo'nalish: ${direction === "Yo'nalishni tanlang" ? "Tanlanmadi" : direction}\n💬 Xabar: ${message || "Yo'q"}`;
+  const text = `рџ“¬ Yangi murojaat!\n\nрџ‘¤ Ism: ${name}\nрџ“ћ Telefon: ${phone}\nрџ“љ Yo'nalish: ${direction === "Yo'nalishni tanlang" ? "Tanlanmadi" : direction}\nрџ’¬ Xabar: ${message || "Yo'q"}`;
 
   const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
@@ -144,7 +144,7 @@ function handleSubmit(e) {
 // Typewriter effect (D disk loyihasidan)
 document.addEventListener('DOMContentLoaded', () => {
   const text1 = "Dang'ara tuman ";
-  const text2 = "3-son Politexnikum";
+  const text2 = "3-son Texnikum";
   const el1 = document.getElementById('typewriter-line1');
   const el2 = document.getElementById('typewriter-line2');
   const cursor = document.getElementById('cursor');
