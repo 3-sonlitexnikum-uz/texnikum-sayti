@@ -82,6 +82,31 @@
             border-color: var(--primary);
         }
 
+        .pass-wrapper {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .pass-wrapper input {
+            margin-bottom: 0;
+            padding-right: 40px;
+        }
+
+        .pass-wrapper i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .pass-wrapper i:hover {
+            color: var(--primary);
+        }
+
         .lock-box button {
             background: var(--primary);
             color: white;
@@ -275,13 +300,18 @@
     <!-- QULF EKRAN -->
     <div class="lock-screen" id="lockScreen">
         <div class="lock-box">
-            <h2>🔒 Admin Panel</h2>
+            <h2><i class="fa-solid fa-lock" style="color: var(--primary); margin-right: 8px;"></i> Admin Panel</h2>
             <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Boshqarish uchun parolni kiriting
             </p>
-            <input type="password" id="passInput" placeholder="Sirlangan Parol">
+
+            <div class="pass-wrapper">
+                <input type="password" id="passInput" placeholder="Sirlangan Parol">
+                <i class="fa-solid fa-eye" id="togglePass" onclick="togglePassword()"></i>
+            </div>
+
             <button onclick="checkPass()">Kirish</button>
-            <p id="passError" style="color: var(--danger); font-size: 14px; display: none; margin-top: 15px;">❌ Parol
-                xato!</p>
+            <p id="passError" style="color: var(--danger); font-size: 14px; display: none; margin-top: 15px;"><i
+                    class="fa-solid fa-circle-xmark"></i> Parol xato!</p>
         </div>
     </div>
 
@@ -291,7 +321,8 @@
         <!-- CHAP: POST QO'SHISH -->
         <div class="panel-card">
             <div class="title-bar">
-                <h2>✨ Yangi qo'shish</h2>
+                <h2><i class="fa-solid fa-square-plus" style="color: var(--primary); margin-right: 8px;"></i> Yangi
+                    qo'shish</h2>
             </div>
 
             <form id="newsForm">
@@ -325,14 +356,15 @@
             </form>
             <div id="resultBox"
                 style="display: none; margin-top: 15px; padding: 15px; background: rgba(16, 185, 129, 0.1); color: #10B981; border-radius: 8px; text-align: center; font-weight: 500;">
-                ✅ Muvaffaqiyatli saqlandi!
+                <i class="fa-solid fa-circle-check"></i> Muvaffaqiyatli saqlandi!
             </div>
         </div>
 
         <!-- O'NG: JAMLANMA POSTLAR -->
         <div class="panel-card">
             <div class="title-bar">
-                <h2>📚 Barcha postlar</h2>
+                <h2><i class="fa-solid fa-list" style="color: var(--primary); margin-right: 8px;"></i> Barcha postlar
+                </h2>
                 <button onclick="loadPosts()" class="btn-delete" style="background: var(--primary); color: white;"
                     title="Yangilash">
                     <i class="fa-solid fa-rotate-right"></i>
@@ -365,12 +397,24 @@
             if (e.key === 'Enter') checkPass();
         });
 
+        function togglePassword() {
+            const input = document.getElementById('passInput');
+            const icon = document.getElementById('togglePass');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
 
         // === API LINKLAR === //
-        const IMGBB_API_KEY = "6f151d36cce3b1198b9685d8cb0f47a4";
+        const IMGBB_API_KEY = "b82178e9a4a35494c32a779da68b75ad";
 
-        // MOCH API Yoki Firebase Linkini joylaysiz!
-        const MOCK_API = "https://shu-yerga-mockapi-linkini-yozasiz.mockapi.io/news";
+        // MongoDB SERVERLESS LINKI
+        const DATABASE_API = "/.netlify/functions/news";
 
 
         // === SANA === //
@@ -384,7 +428,7 @@
             const container = document.getElementById('postsContainer');
             container.innerHTML = '<p style="text-align: center; color: var(--text-muted);"><i class="fa-solid fa-circle-notch fa-spin"></i> Yuklanmoqda...</p>';
 
-            fetch(MOCK_API)
+            fetch(DATABASE_API)
                 .then(res => res.json())
                 .then(data => {
                     container.innerHTML = '';
@@ -413,7 +457,7 @@
                     });
                 })
                 .catch(err => {
-                    container.innerHTML = `<p style="color: var(--danger); text-align: center;">Baza ulanmagan! MOCK_API ni o'zgartirdingizmi?</p>`;
+                    container.innerHTML = `<p style="color: var(--danger); text-align: center;">Baza ulanmagan yoki Netlify hali ishga tushmagan.</p>`;
                 });
         }
 
@@ -425,7 +469,7 @@
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
             btn.disabled = true;
 
-            fetch(MOCK_API + '/' + id, { method: 'DELETE' })
+            fetch(DATABASE_API + '/' + id, { method: 'DELETE' })
                 .then(res => {
                     if (res.ok) {
                         document.getElementById('post-' + id).remove();
@@ -471,8 +515,8 @@
                         imageUrl: imgData.data.url
                     };
 
-                    // 2. Ma'lumotlarni MockAPI (Yoki Ochiq Baza) ga yozish
-                    const apiRes = await fetch(MOCK_API, {
+                    // 2. Ma'lumotlarni MongoDB ga yozish
+                    const apiRes = await fetch(DATABASE_API, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newObj)

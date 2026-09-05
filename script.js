@@ -17,9 +17,9 @@ document.querySelectorAll('.nav-link, .nav-btn').forEach(link => {
 });
 
 // Load dynamic news from localStorage (Admin panel)
-// Load dynamic news from Global API (MockAPI)
+// Load dynamic news from Global API (MongoDB Backend)
 const newsGrid = document.getElementById('newsGrid');
-const API_URL = "https://shu-yerga-mockapi-linkini-yozasiz.mockapi.io/news"; // <=== MOCKAPI LINKINI SHU YERGA QO'YING!
+const API_URL = "/.netlify/functions/news"; // BIZ YASAGAN MONGODB BACKEND!
 
 if (newsGrid) {
   fetch(API_URL)
