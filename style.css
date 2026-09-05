@@ -768,12 +768,33 @@ section {
 }
 
 .news-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  overflow-x: auto;
   gap: 24px;
+  padding-bottom: 16px;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.news-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.news-grid::-webkit-scrollbar-track {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.news-grid::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
 }
 
 .news-card {
+  min-width: 320px;
+  max-width: 320px;
+  scroll-snap-align: center;
+  flex-shrink: 0;
   background: var(--card);
   border: 1px solid var(--card-border);
   border-radius: var(--radius);

@@ -4,40 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yangilik Qo'shish (Admin)</title>
+    <title>Texnikum - Boshqaruv Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         :root {
-            --primary: #4F46E5;
-            --bg: #F9FAFB;
-            --card: #FFFFFF;
-            --text: #1F2937;
-            --border: #E5E7EB;
+            --primary: #7A93A6;
+            --primary-dark: #5C768A;
+            --secondary: #91A8BA;
+            --accent: #4A6B7C;
+            --bg: #F4F5F7;
+            --bg2: #EAECEF;
+            --card: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(255, 255, 255, 0.9);
+            --text: #111827;
+            --text-muted: #4B5563;
+            --radius: 16px;
+            --shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+            --danger: #EF4444;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
             padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        /* Qulf Ekrani */
+        .lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(10px);
             display: flex;
+            align-items: center;
             justify-content: center;
+            z-index: 1000;
         }
 
-        .admin-container {
+        .lock-box {
             background: var(--card);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            width: 100%;
-            max-width: 600px;
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid var(--card-border);
         }
 
-        h1 {
-            font-size: 24px;
+        .lock-box h2 {
             margin-top: 0;
+            color: var(--text);
+        }
+
+        .lock-box input {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             text-align: center;
+            font-size: 18px;
+            letter-spacing: 2px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .lock-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .lock-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lock-box button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Asosiy panel (ikki ustunli) */
+        .admin-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        h1,
+        h2 {
+            margin-top: 0;
+        }
+
+        .title-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .form-group {
@@ -47,115 +143,129 @@
         label {
             display: block;
             margin-bottom: 6px;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 14px;
+            color: var(--text-muted);
         }
 
         input,
-        textarea,
-        select {
+        textarea {
             width: 100%;
             padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
             font-size: 14px;
             box-sizing: border-box;
+            font-family: inherit;
         }
 
-        button {
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        button.btn-primary {
             width: 100%;
             padding: 12px;
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: 0.3s;
         }
 
-        button:hover {
-            opacity: 0.9;
+        button.btn-primary:hover {
+            background: var(--primary-dark);
         }
 
-        button:disabled {
-            background: #9CA3AF;
+        button.btn-primary:disabled {
+            background: var(--secondary);
             cursor: not-allowed;
         }
 
-        .result {
-            margin-top: 24px;
-            padding: 16px;
-            background: #F3F4F6;
+        /* Barcha postlar ro'yxati */
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .posts-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .posts-list::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+
+        .post-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .post-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .post-img {
+            width: 70px;
+            height: 70px;
             border-radius: 8px;
-            display: none;
+            object-fit: cover;
         }
 
-        .result h3 {
-            margin-top: 0;
-            font-size: 16px;
-            color: #111827;
+        .post-info {
+            flex: 1;
         }
 
-        textarea.code-output {
-            height: 250px;
-            font-family: monospace;
-            background: #111827;
-            color: #10B981;
-            resize: none;
+        .post-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 15px;
+            color: var(--text);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .copy-btn {
-            margin-top: 10px;
-            background: #10B981;
+        .post-info p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        .lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #111827;
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            transition: 0.2s;
         }
 
-        .lock-box {
-            background: #1F2937;
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        }
-
-        .lock-box h2 {
-            color: #F9FAFB;
-            margin-top: 0;
-        }
-
-        .lock-box input {
-            background: #374151;
+        .btn-delete:hover {
+            background: var(--danger);
             color: white;
-            border: 1px solid #4B5563;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 18px;
-            letter-spacing: 2px;
-        }
-
-        .lock-box input::placeholder {
-            color: #9CA3AF;
-            letter-spacing: 0;
-        }
-
-        .lock-box button {
-            background: #10B981;
         }
     </style>
 </head>
@@ -166,147 +276,228 @@
     <div class="lock-screen" id="lockScreen">
         <div class="lock-box">
             <h2>🔒 Admin Panel</h2>
-            <p style="color: #9CA3AF; font-size: 14px; margin-bottom: 20px;">Xavfsizlik uchun parolni kiriting</p>
-            <input type="password" id="passInput" placeholder="Parol">
-            <button onclick="checkPass()">Kirish</button>
-            <p id="passError" style="color: #EF4444; font-size: 14px; display: none; margin-top: 15px;">❌ Parol xato!
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">Boshqarish uchun parolni kiriting
             </p>
+            <input type="password" id="passInput" placeholder="Sirlangan Parol">
+            <button onclick="checkPass()">Kirish</button>
+            <p id="passError" style="color: var(--danger); font-size: 14px; display: none; margin-top: 15px;">❌ Parol
+                xato!</p>
         </div>
     </div>
 
     <!-- ASOSIY ADMIN PANEL -->
-    <div class="admin-container" id="mainContent" style="display: none;">
-        <h1>Yangilik Qo'shish (ImgBB)</h1>
-        <form id="newsForm">
-            <div class="form-group">
-                <label>Sarlavha (Title)</label>
-                <input type="text" id="title" required placeholder="Masalan: Yangi tanlov g'oliblari aniqlandi">
+    <div class="admin-wrapper" id="mainContent" style="display: none;">
+
+        <!-- CHAP: POST QO'SHISH -->
+        <div class="panel-card">
+            <div class="title-bar">
+                <h2>✨ Yangi qo'shish</h2>
             </div>
 
-            <div class="form-group">
-                <label>Rasm yuklash</label>
-                <input type="file" id="imageFile" accept="image/*" required>
+            <form id="newsForm">
+                <div class="form-group">
+                    <label>Sarlavha (Title)</label>
+                    <input type="text" id="title" required placeholder="Masalan: Eng zo'r talabalari taqdirlandi">
+                </div>
+
+                <div class="form-group">
+                    <label>Rasm yuklash</label>
+                    <input type="file" id="imageFile" accept="image/*" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Kategoriya tekshiruvi</label>
+                    <input type="text" id="tag" required placeholder="Masalan: Tanlov">
+                </div>
+
+                <div class="form-group">
+                    <label>Sana</label>
+                    <input type="text" id="date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Asosiy Matn</label>
+                    <textarea id="content" rows="4" required placeholder="Batafsil yozing..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary" id="submitBtn">Saytga Joylash <i
+                        class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i></button>
+            </form>
+            <div id="resultBox"
+                style="display: none; margin-top: 15px; padding: 15px; background: rgba(16, 185, 129, 0.1); color: #10B981; border-radius: 8px; text-align: center; font-weight: 500;">
+                ✅ Muvaffaqiyatli saqlandi!
             </div>
-
-            <div class="form-group">
-                <label>Teg (Kategoriya)</label>
-                <input type="text" id="tag" required placeholder="Masalan: Yutuqlar">
-            </div>
-
-            <div class="form-group">
-                <label>Sana</label>
-                <input type="text" id="date" required placeholder="Kk.Oo.Yyyy">
-            </div>
-
-            <div class="form-group">
-                <label>Matn (Content)</label>
-                <textarea id="content" rows="4" required placeholder="Yangilik haqida to'liq ma'lumot..."></textarea>
-            </div>
-
-            <button type="submit" id="submitBtn">Yangi yangilikni saqlash</button>
-        </form>
-
-        <div class="result" id="resultBox">
-            <h3 style="color: #10B981;">✅ Zo'r! Yangilik saytga avtomat qo'shildi!</h3>
-            <p style="font-size: 14px;">Endi <a href="index.html" target="_blank">Asosiy saytga</a> o'tib natijani
-                ko'rishingiz mumkin.</p>
         </div>
+
+        <!-- O'NG: JAMLANMA POSTLAR -->
+        <div class="panel-card">
+            <div class="title-bar">
+                <h2>📚 Barcha postlar</h2>
+                <button onclick="loadPosts()" class="btn-delete" style="background: var(--primary); color: white;"
+                    title="Yangilash">
+                    <i class="fa-solid fa-rotate-right"></i>
+                </button>
+            </div>
+            <div class="posts-list" id="postsContainer">
+                <p style="text-align: center; color: var(--text-muted); margin-top: 20px;">Yangiliklar bazadan
+                    yuklanmoqda...</p>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // PAROL TEKSHIRISH (Kriptografik shifrlangan holat)
-        // Parolingiz "Texnikum3son2026"
-        // Agar o'zgartirmoqchi bo'lsangiz, uni Base64 da shifrlab btoa('yangi parol') deb console'dan olib bu yerga qo'yasiz.
+        // === PAROL SOZLAMALARI === //
         const ADMIN_PASS_HASH = "VGV4bmlrdW0zc29uMjAyNg==";
-
         function checkPass() {
             const input = document.getElementById('passInput').value;
             if (btoa(input) === ADMIN_PASS_HASH) {
                 document.getElementById('lockScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('mainContent').style.display = 'grid';
+                loadPosts(); // Parolni to'gri topsa postlarni tortadi!
             } else {
                 document.getElementById('passError').style.display = 'block';
                 setTimeout(() => document.getElementById('passError').style.display = 'none', 2000);
             }
         }
 
-        // Enter bosilganda ham ishlashi uchun
         document.getElementById('passInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') checkPass();
         });
 
-        // Dasturchiga API KEYni o'zgartirishi kerak
-        const IMGBB_API_KEY = "6f151d36cce3b1198b9685d8cb0f47a4"; // O'zingizning API kalitingizni shu yerga qo'ying yoki tekin kalit ishlatavering.
 
-        // Bugungi sanani avtomat qoyish
+        // === API LINKLAR === //
+        const IMGBB_API_KEY = "6f151d36cce3b1198b9685d8cb0f47a4";
+
+        // MOCH API Yoki Firebase Linkini joylaysiz!
+        const MOCK_API = "https://shu-yerga-mockapi-linkini-yozasiz.mockapi.io/news";
+
+
+        // === SANA === //
         const today = new Date();
-        document.getElementById('date').value =
-            String(today.getDate()).padStart(2, '0') + '.' +
-            String(today.getMonth() + 1).padStart(2, '0') + '.' +
-            today.getFullYear();
+        const formattedDate = String(today.getDate()).padStart(2, '0') + '.' + String(today.getMonth() + 1).padStart(2, '0') + '.' + today.getFullYear();
+        document.getElementById('date').value = formattedDate;
 
+
+        // === POSTLARNI BAZADAN TORTIB OLISH (KO'RISh, O'CHIRISH) === //
+        function loadPosts() {
+            const container = document.getElementById('postsContainer');
+            container.innerHTML = '<p style="text-align: center; color: var(--text-muted);"><i class="fa-solid fa-circle-notch fa-spin"></i> Yuklanmoqda...</p>';
+
+            fetch(MOCK_API)
+                .then(res => res.json())
+                .then(data => {
+                    container.innerHTML = '';
+                    if (!Array.isArray(data)) {
+                        container.innerHTML = `<p style="color: var(--danger); text-align: center;">Mock API linkini yozmabsizku! script.js va admin panel tepasiga qo'ying!</p>`;
+                        return;
+                    }
+                    if (data.length === 0) {
+                        container.innerHTML = `<p style="text-align: center; color: var(--text-muted);">Xozircha hech qanday post yo'q</p>`;
+                        return;
+                    }
+
+                    data.sort((a, b) => b.id - a.id).forEach(post => {
+                        container.innerHTML += `
+                            <div class="post-item" id="post-${post.id}">
+                                <img src="${post.imageUrl}" class="post-img" alt="rasm">
+                                <div class="post-info">
+                                    <h4>${post.title}</h4>
+                                    <p><i class="fa-regular fa-clock"></i> ${post.date} &nbsp; | &nbsp; <i class="fa-solid fa-tag"></i> ${post.tag}</p>
+                                </div>
+                                <button class="btn-delete" title="O'chirish" onclick="deletePost('${post.id}')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        `;
+                    });
+                })
+                .catch(err => {
+                    container.innerHTML = `<p style="color: var(--danger); text-align: center;">Baza ulanmagan! MOCK_API ni o'zgartirdingizmi?</p>`;
+                });
+        }
+
+        // === BAZADAN O'CHIRISH === //
+        function deletePost(id) {
+            if (!confirm("Haqiqatdan ham bu postni saytdan uchirib tashlamoqchimisiz?")) return;
+
+            const btn = document.querySelector(`#post-${id} .btn-delete`);
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            btn.disabled = true;
+
+            fetch(MOCK_API + '/' + id, { method: 'DELETE' })
+                .then(res => {
+                    if (res.ok) {
+                        document.getElementById('post-' + id).remove();
+                    } else {
+                        alert("O'chirishda xatolik yuz berdi!");
+                        loadPosts();
+                    }
+                })
+                .catch(err => {
+                    alert("Xatolik! Internet yo'q yoki baza nishonda emas.");
+                    loadPosts();
+                });
+        }
+
+        // === YANGI POST QO'SHISH VA JOYLASH === //
         document.getElementById('newsForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const fileInput = document.getElementById('imageFile');
-            if (fileInput.files.length === 0) return alert("Rasmni tanlang!");
-
-            const file = fileInput.files[0];
-            const formData = new FormData();
-            formData.append('image', file);
+            if (fileInput.files.length === 0) return alert("Rasm tanlanmadi!");
 
             const submitBtn = document.getElementById('submitBtn');
-            submitBtn.innerText = "Yuklanmoqda. Iltimos kuting...";
+            submitBtn.innerHTML = 'Yuklanmoqda... <i class="fa-solid fa-circle-notch fa-spin"></i>';
             submitBtn.disabled = true;
 
             try {
+                // 1. Rasmni ImgBB ga yuborish
+                const formData = new FormData();
+                formData.append('image', fileInput.files[0]);
+
                 const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
                     method: 'POST',
                     body: formData
                 });
+                const imgData = await response.json();
 
-                const data = await response.json();
+                if (imgData.success) {
+                    const newObj = {
+                        title: document.getElementById('title').value,
+                        tag: document.getElementById('tag').value,
+                        date: document.getElementById('date').value,
+                        content: document.getElementById('content').value,
+                        imageUrl: imgData.data.url
+                    };
 
-                if (data.success) {
-                    const imageUrl = data.data.url;
-
-                    const title = document.getElementById('title').value;
-                    const tag = document.getElementById('tag').value;
-                    const date = document.getElementById('date').value;
-                    const content = document.getElementById('content').value;
-
-                    const newObj = { title, tag, date, content, imageUrl };
-
-                    // MOCKAPI GA YULLASH (GLOBAL)
-                    const MOCK_API = "https://shu-yerga-mockapi-linkini-yozasiz.mockapi.io/news"; // <=== MOCKAPI LINKINI SHU YERGA QO'YING!
-
-                    fetch(MOCK_API, {
+                    // 2. Ma'lumotlarni MockAPI (Yoki Ochiq Baza) ga yozish
+                    const apiRes = await fetch(MOCK_API, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newObj)
-                    }).then(res => {
-                        if (res.ok) {
-                            document.getElementById('resultBox').style.display = 'block';
-                            document.getElementById('newsForm').reset();
-                            document.getElementById('date').value =
-                                String(today.getDate()).padStart(2, '0') + '.' +
-                                String(today.getMonth() + 1).padStart(2, '0') + '.' +
-                                today.getFullYear();
-                        } else {
-                            alert("Baza (MockAPI) linki to'g'ri qo'yilganiga ishonch hosil qiling!");
-                        }
-                    }).catch(error => {
-                        alert("Bazaga ulanishda xatolik: " + error);
                     });
 
+                    if (apiRes.ok) {
+                        const resultBox = document.getElementById('resultBox');
+                        resultBox.style.display = 'block';
+                        document.getElementById('newsForm').reset();
+                        document.getElementById('date').value = formattedDate;
+
+                        // Ro'yxatni yangilab quyish
+                        loadPosts();
+
+                        setTimeout(() => resultBox.style.display = 'none', 3000);
+                    } else {
+                        alert("Baza bilan xatolik. API linkini o'zgartirganmisiz?");
+                    }
                 } else {
-                    alert("Xato yuz berdi: " + data.error.message);
+                    alert("Rasm yuklashda xato: " + imgData.error.message);
                 }
             } catch (err) {
-                alert("Internet aloqasini tekshiring yoki API kalitni to'g'rilang!");
-                console.error(err);
+                alert("Internet muammosi yoki xabar ketmadi!");
             } finally {
-                submitBtn.innerText = "Yangi yangilikni saqlash";
+                submitBtn.innerHTML = 'Saytga Joylash <i class="fa-solid fa-paper-plane" style="margin-left: 5px;"></i>';
                 submitBtn.disabled = false;
             }
         });
