@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Dang'ara tuman 3-son Texnikumi вЂ” o'quvchilarga xalqaro darajadagi kasb-hunar o'rgatuvchi davlat ta'lim muassasasi." />
+    content="Dang'ara tuman 3-son Texnikumi — o'quvchilarga xalqaro darajadagi kasb-hunar o'rgatuvchi davlat ta'lim muassasasi." />
   <title>3-sonli Texnikum</title>
   <link rel="icon"
     href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%236C879F'/%3E%3Cpath fill='white' transform='translate(17, 24) scale(0.105)' d='M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l85.25 26.14V352c0 22.81 12.33 43.83 31.95 54.4l150 81.33c16.14 8.75 35.1 8.75 51.24 0l150-81.33c19.62-10.57 31.95-31.59 31.95-54.4V224.93l85.25-26.14c23.54-7.23 23.54-38.36 0-45.59zM432 352c0 5.48-2.9 10.42-7.55 12.92l-120 65.07c-3.1 1.68-6.8 1.68-9.9 0l-120-65.07C169.9 362.42 167 357.48 167 352V250.77l133.02 40.78c15.2 4.67 31.6 4.67 46.79 0L432 250.77V352z'/%3E%3C/svg%3E">
@@ -29,16 +29,33 @@
           <span class="logo-sub">Dang'ara tumani</span>
         </div>
       </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about" class="nav-link">Texnikum haqida</a></li>
-        <li><a href="#news" class="nav-link">Yangiliklar</a></li>
-        <li><a href="#directions" class="nav-link">Mutaxassislik</a></li>
-        <li><a href="#structure" class="nav-link">Tuzilma</a></li>
-        <li><a href="#contact" class="nav-link">Aloqa</a></li>
-        <li><span class="nav-qabul">
-            <span class="qabul-dot"></span> Qabul
-          </span></li>
-      </ul>
+      <div class="nav-right" style="display: flex; align-items: center; gap: 12px;">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about" class="nav-link">Texnikum haqida</a></li>
+          <li><a href="#news" class="nav-link">Yangiliklar</a></li>
+          <li><a href="#directions" class="nav-link">Mutaxassislik</a></li>
+          <li><a href="#structure" class="nav-link">Tuzilma</a></li>
+          <li><a href="#contact" class="nav-link">Aloqa</a></li>
+        </ul>
+        <div class="nav-mascot-wrapper">
+          <div class="nav-mascot" id="nav-mascot" title="Menyuni yopish/ochish">
+            <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="65" height="65">
+              <path d="M10,40 L60,20 L110,40 L60,60 Z" fill="var(--primary-dark)" />
+              <path d="M30,50 L30,70 Q60,95 90,70 L90,50 Z" fill="var(--secondary)" />
+              <path d="M100,50 L100,80" stroke="var(--primary-dark)" stroke-width="4" fill="none" />
+              <circle cx="100" cy="80" r="6" fill="#facc15" />
+              <rect x="35" y="55" width="50" height="35" rx="15" fill="var(--bg)" stroke="var(--primary)"
+                stroke-width="2" />
+              <circle cx="48" cy="70" r="8" fill="white" stroke="var(--text-muted)" stroke-width="1" />
+              <circle id="nav-pupil-left" cx="48" cy="70" r="4" fill="var(--text)" />
+              <circle cx="72" cy="70" r="8" fill="white" stroke="var(--text-muted)" stroke-width="1" />
+              <circle id="nav-pupil-right" cx="72" cy="70" r="4" fill="var(--text)" />
+              <path d="M 56 80 Q 60 84 64 80" stroke="var(--text)" stroke-width="2" fill="none"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button class="burger" id="burger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -67,7 +84,7 @@
         Zamonaviy texnologiyalar, amaliy ta'lim va professional ustozlar. O'z karyerangizni bugun boshlang.
       </p>
       <div class="hero-buttons">
-        <a href="#directions" class="btn-primary">Yo'nalishlar в†’</a>
+        <a href="#directions" class="btn-primary">Yo'nalishlar →</a>
         <a href="#contact" class="btn-secondary">Bog'lanish</a>
       </div>
     </div>
@@ -122,7 +139,7 @@
           <h3>Tashkil topishi</h3>
           <p>
             Dang'ara tuman 3-son Texnikumi o'z faoliyatini <strong>2019-yil 6-sentabr</strong>da
-            O'zbekiston Respublikasi Prezidentining <strong>PFвЂ“5812</strong>-sonli Farmoni asosida
+            O'zbekiston Respublikasi Prezidentining <strong>PF-5812</strong>-sonli Farmoni asosida
             Qo'qon davlat pedagogika instituti huzuridagi ko'p tarmoqli texnikum sifatida boshlagan.
           </p>
         </div>
@@ -130,7 +147,7 @@
           <div class="about-card-icon"><i class="fa-solid fa-graduation-cap gradient-text"></i></div>
           <h3>Texnikum maqomi</h3>
           <p>
-            <strong>2024-yil 16-oktabr</strong>dagi PFвЂ“158-son Farmonga muvofiq, muassasa
+            <strong>2024-yil 16-oktabr</strong>dagi PF-158-son Farmonga muvofiq, muassasa
             "Dang'ara tuman 3-son Texnikumi" nomi bilan qayta tashkil etilib,
             bugungi kunda zamonaviy kasbiy ta'lim maskani sifatida faoliyat yuritmoqda.
           </p>
@@ -165,7 +182,7 @@
           <div class="benefit-icon"><i class="fa-solid fa-link gradient-text"></i></div>
           <div>
             <h4>2+2 dasturi</h4>
-            <p>2 yil Texnikumda + 2 yil Oliy ta'limda вЂ” bir zumda bakalavr!</p>
+            <p>2 yil Texnikumda + 2 yil Oliy ta'limda — bir zumda bakalavr!</p>
           </div>
         </div>
       </div>
@@ -217,7 +234,7 @@
               <span class="detail-value">Kunduzgi</span>
             </div>
           </div>
-          <a href="#contact" class="direction-btn">Ariza topshirish в†’</a>
+          <a href="#contact" class="direction-btn">Ariza topshirish →</a>
         </div>
         <div class="direction-card animate-card">
           <div class="direction-icon"><i class="fa-solid fa-chart-column gradient-text"></i></div>
@@ -240,7 +257,7 @@
               <span class="detail-value">Kunduzgi</span>
             </div>
           </div>
-          <a href="#contact" class="direction-btn">Ariza topshirish в†’</a>
+          <a href="#contact" class="direction-btn">Ariza topshirish →</a>
         </div>
         <div class="direction-card animate-card">
           <div class="direction-icon"><i class="fa-solid fa-bolt gradient-text"></i></div>
@@ -262,7 +279,7 @@
               <span class="detail-value">Kunduzgi</span>
             </div>
           </div>
-          <a href="#contact" class="direction-btn">Ariza topshirish в†’</a>
+          <a href="#contact" class="direction-btn">Ariza topshirish →</a>
         </div>
       </div>
     </div>
@@ -330,7 +347,7 @@
           <div class="contact-click-card animate-card" onclick="window.location.href='tel:+998882053886'">
             <div class="contact-click-icon phone"><i class="fa-solid fa-phone"></i></div>
             <h3>Telefon</h3>
-            <p>Ish vaqti: 9:00 вЂ” 18:00</p>
+            <p>Ish vaqti: 9:00 — 18:00</p>
             <span class="cc-link">+998 88 205-38-86 <i class="fa-solid fa-arrow-right"></i></span>
           </div>
         </div>
@@ -364,7 +381,7 @@
             </svg>
           </button>
           <div class="form-success" id="formSuccess">
-            вњ… Xabaringiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz.
+            ✅ Xabaringiz muvaffaqiyatli yuborildi! Tez orada bog'lanamiz.
           </div>
         </form>
       </div>
@@ -388,7 +405,7 @@
             <a href="https://t.me/dangara_3son_texnikum" target="_blank" title="Telegram"><i
                 class="fa-brands fa-telegram"></i></a>
             <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://youtube.com/@3son_texnikum" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.youtube.com/@3sonTexnikum" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
             <a href="mailto:3sonpolitex@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
           </div>
         </div>
@@ -413,13 +430,13 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Dang'ara 3-son Texnikumi. Barcha huquqlar himoyalangan.</p>
-        <p>Asoschi: Dostonbek Ruzmatov</p>
+        <p>Asoschi: <a href="https://t.me/m27_Dony" target="_blank"
+            style="color: inherit; text-decoration: underline;">Dostonbek Ruzmatov</a></p>
       </div>
     </div>
   </footer>
 
   <!--Dostonbek Ruzmatov tomonidan tashkil etilgan-->
-
   <script src="script.js"></script>
 </body>
 

@@ -59,13 +59,13 @@ body {
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  height: 80px;
 }
 
 .nav-logo {
@@ -108,22 +108,45 @@ body {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: right center;
+}
+
+.nav-links.collapsed {
+  opacity: 0;
+  transform: translateX(50px) scaleX(0);
+  pointer-events: none;
 }
 
 .nav-link {
+  position: relative;
   text-decoration: none;
   color: var(--text-muted);
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 14px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 16px;
   border-radius: 8px;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
-.nav-link:hover {
-  color: var(--text);
-  background: var(--card);
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .nav-btn {
@@ -142,62 +165,25 @@ body {
   transform: translateY(-1px);
 }
 
-.nav-qabul {
-  text-decoration: none;
-  display: inline-flex;
+/* NAV MASCOT TOGGLER */
+.nav-mascot-wrapper {
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: 50px;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 20px rgba(92, 118, 138, 0.4);
-  transition: all 0.3s;
-  animation: qabulGlow 2.5s ease-in-out infinite;
+  justify-content: center;
 }
 
-.nav-qabul:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(92, 118, 138, 0.55);
+.nav-mascot {
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+  z-index: 2000;
 }
 
-.qabul-dot {
-  width: 8px;
-  height: 8px;
-  background: #4ade80;
-  border-radius: 50%;
-  flex-shrink: 0;
-  animation: qabulPulse 1.5s ease-out infinite;
+.nav-mascot:hover {
+  transform: scale(1.1) translateY(-2px);
 }
 
-@keyframes qabulPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.8);
-  }
-
-  70% {
-    box-shadow: 0 0 0 7px rgba(74, 222, 128, 0);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
-  }
-}
-
-@keyframes qabulGlow {
-
-  0%,
-  100% {
-    box-shadow: 0 4px 20px rgba(92, 118, 138, 0.3);
-  }
-
-  50% {
-    box-shadow: 0 6px 28px rgba(92, 118, 138, 0.6);
-  }
-}
 
 .burger {
   display: none;
@@ -327,12 +313,25 @@ body {
   gap: 8px;
   background: rgba(122, 147, 166, 0.15);
   border: 1px solid rgba(122, 147, 166, 0.4);
-  color: var(--primary-dark);
   padding: 8px 18px;
-  border-radius: 50px;
-  font-size: 13px;
+  border-radius: 100px;
+  color: var(--primary-dark);
   font-weight: 600;
+  font-size: 14px;
+  backdrop-filter: blur(10px);
+  font-family: 'Space Grotesk', sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
   margin-bottom: 24px;
+}
+
+.hero-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(122, 147, 166, 0.2);
+}
+
+.hero-badge:active {
+  transform: scale(0.95);
 }
 
 .badge-dot {
@@ -487,6 +486,18 @@ body {
   gap: 1rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
   animation: floatCard 6s infinite ease-in-out;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  animation-play-state: paused;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(122, 147, 166, 0.5);
+  z-index: 10;
+}
+
+.glass-card:active {
+  transform: scale(0.95) !important;
 }
 
 .glass-card i {
@@ -662,11 +673,22 @@ section {
   color: var(--primary);
   padding: 6px 16px;
   border-radius: 50px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.section-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(99, 102, 241, 0.2);
+}
+
+.section-tag:active {
+  transform: scale(0.95);
 }
 
 .section-title {
@@ -1625,5 +1647,134 @@ section {
   .form-group select,
   .form-group textarea {
     font-size: 14px;
+  }
+}
+
+/* GLOBAL ANIMATIONS FOR CARDS & ELEMENTS */
+.animate-card,
+.animate-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.animate-card.visible,
+.animate-element.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HAR BIR BELGI VA TUGMA UCHUN JONLI ANIMATSIYALAR */
+.about-card:hover .about-card-icon i,
+.benefit-item:hover .benefit-icon i,
+.direction-card:hover .direction-icon i,
+.contact-click-card:hover .contact-click-icon i {
+  transform: scale(1.2) rotate(10deg);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-card-icon i,
+.benefit-icon i,
+.direction-icon i,
+.contact-click-icon i {
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.btn-primary,
+.btn-secondary,
+.direction-btn,
+.form-submit {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.direction-btn:active,
+.form-submit:active {
+  transform: scale(0.95);
+}
+
+/* SMART MASCOT STYLING */
+.smart-mascot-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.mascot-speech {
+  background: white;
+  color: var(--text);
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(10px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.mascot-speech::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 38px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+}
+
+.smart-mascot-container:hover .mascot-speech,
+.smart-mascot-container.active .mascot-speech {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.smart-mascot {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  animation: floatMascot 4s ease-in-out infinite;
+}
+
+.smart-mascot:hover {
+  transform: scale(1.1) translateY(-10px);
+  animation-play-state: paused;
+}
+
+@keyframes floatMascot {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (max-width: 768px) {
+  .smart-mascot-container {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .smart-mascot {
+    width: 60px;
+    height: 60px;
   }
 }

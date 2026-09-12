@@ -38,7 +38,7 @@ if (newsGrid) {
             <div class="news-tag">${news.tag}</div>
             <h3>${news.title}</h3>
             <p>${news.content}</p>
-            <a href="https://t.me/dangara_3son_texnikum" target="_blank" class="news-link">Batafsil в†’</a>
+            <a href="https://t.me/dangara_3son_texnikum" target="_blank" class="news-link">Batafsil →</a>
           </div>
         `;
         newsGrid.insertBefore(card, newsGrid.firstChild);
@@ -51,16 +51,23 @@ if (newsGrid) {
     });
 }
 
-// Scroll animation
+// Scroll animation (Barcha kartalar, yozuvlar va tugmalar uchun!)
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
-document.querySelectorAll('.animate-card').forEach(el => observer.observe(el));
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate-card, .section-tag, .section-title, .section-desc, .about-card h3, .about-card p, .direction-card h3, .direction-card p, .direction-card ul li, .benefit-item h4, .benefit-item p, .leader-card h3, .leader-card p, .hero-desc, .btn-primary, .btn-secondary, .contact-click-card h3, .contact-click-card p, .form-group').forEach(el => {
+  if (!el.classList.contains('animate-element')) {
+    el.classList.add('animate-element');
+  }
+  observer.observe(el);
+});
+
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -169,3 +176,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (el1 && el2) setTimeout(typeText1, 500);
 });
+
+// Faqat bitta (yuqori) mascot qoldi. Ehtiyot shart xatolar bo'lmasligi uchun constlarni aniq yozamiz.
+const navPupilLeft = document.getElementById('nav-pupil-left');
+const navPupilRight = document.getElementById('nav-pupil-right');
+const navMascot = document.getElementById('nav-mascot');
+const navLinksList = document.getElementById('navLinks');
+
+// Hero background orbs for parallax
+const orbs = document.querySelectorAll('.hero-orb');
+
+document.addEventListener('mousemove', (e) => {
+  // Nav Mascot Eyes Tracking
+  if (navMascot && navPupilLeft && navPupilRight) {
+    const nRect = navMascot.getBoundingClientRect();
+    const nCenterX = nRect.left + nRect.width / 2;
+    const nCenterY = nRect.top + nRect.height / 2;
+    const nAngle = Math.atan2(e.clientY - nCenterY, e.clientX - nCenterX);
+
+    // Calculate distance scaling for eye bounds
+    const distance = Math.min(2.5, Math.hypot(e.clientX - nCenterX, e.clientY - nCenterY) * 0.015);
+
+    const ndx = Math.cos(nAngle) * distance;
+    const ndy = Math.sin(nAngle) * distance;
+
+    navPupilLeft.setAttribute('cx', 48 + ndx);
+    navPupilLeft.setAttribute('cy', 70 + ndy);
+    navPupilRight.setAttribute('cx', 72 + ndx);
+    navPupilRight.setAttribute('cy', 70 + ndy);
+  }
+
+  // Background Orbs Parallax Effect (Orqa fon harakati)
+  const x = (window.innerWidth - e.pageX * 3) / 90;
+  const y = (window.innerHeight - e.pageY * 3) / 90;
+
+  if (orbs.length) {
+    orbs.forEach((orb, index) => {
+      const speed = (index + 1) * 1.5;
+      orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+    });
+  }
+});
+
+// Yuqori menyudagi Nav Mascot klik hodisasi (Asosiy menyuni yig'ishtirish u yoq bu yoqqa)
+if (navMascot && navLinksList) {
+  navMascot.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navLinksList.classList.toggle('collapsed');
+  });
+}
