@@ -218,10 +218,11 @@ document.addEventListener('mousemove', (e) => {
   }
 });
 
-// Yuqori menyudagi Nav Mascot klik hodisasi (Asosiy menyuni yig'ishtirish u yoq bu yoqqa)
-if (navMascot && navLinksList) {
+// Yuqori menyudagi Nav Mascot klik hodisasi (Tungi/Uyqu rejimini yoqish)
+if (navMascot) {
   navMascot.addEventListener('click', (e) => {
     e.stopPropagation();
-    navLinksList.classList.toggle('collapsed');
+    document.body.classList.toggle('dark-mode');
   });
 }
+
